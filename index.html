@@ -7,15 +7,97 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="icon" href="https://res.cloudinary.com/dmm3wcupr/image/upload/v1687730239/pokemon/favicon_liwyoi.png">
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <title>Pokedex</title>
+    <style>
+        *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Oxanium', cursive;
+}
+body{
+    text-align: center;
+    background: linear-gradient(to bottom, #6ab7f5, #fff);
+    min-height: 100vh;
+}
+main{
+    display: inline-block;
+    margin-top: 2%;
+    padding: 15px;
+    position: relative;
+}
+.pokedex {
+    width: 100%;
+    max-width: 425px;
+}
+.pokemon-image{
+    position: absolute;
+    bottom: 55%;
+    left: 50%;
+    transform: translate(-63%, 20%);
+    height: 18%;
+}
+.pokemon-data{
+    position: absolute;
+    bottom: 40.5%;
+    right: 27%;
+    font-weight: 600;
+    font-size: clamp(8px, 5vw, 25px);
+    color: #aaa;
+}
+.pkmn-name{
+    color: #3a444d;
+}
+.form{
+    position: absolute;
+    width: 67.5%;
+    bottom: 28%;
+    right: 20.5%;
+}
+.input-search{
+    width: 100%;
+    padding: 4%;
+    outline: none;
+    border: 2px solid #333;
+    border-radius: 5px;
+    font-weight: 700;
+    color: #3a444d;
+    font-size: clamp(8px, 5vw, 1rem);
+    box-shadow: -3px 4px 0 #888, -5px 7px 0 #333;
+}
+.buttons{
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translate(-57%, 0);
+    width: 65%;
+    display: flex;
+    gap: 10px;
+}
+.button{
+    padding: 4%;
+    width: 50%;
+    outline: none;
+    border: 2px solid #333;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-size: clamp(8px, 5vw, 1rem);
+    box-shadow: -3px 4px 0 #222, -5px 7px 0 #000;
+    background-color: #444;
+}
+.button:active{
+    box-shadow: inset -4px 4px 0 #222;
+    font-size: 0.9rem;
+}
+    </style>
 </head>
 <body>
     <main>
         <img src="https://res.cloudinary.com/dmm3wcupr/image/upload/v1687735050/pokemon/pokemons/001_ps3twt.png" alt="pokemon" class="pokemon-image">
         <h1 class="pokemon-data">
-            <span class="pkmn-number">1</span> -
+            <span class="pkmn-number"></span> -
             <span class="pkmn-name">Bicho</span>
         </h1>
         <form class="form">
@@ -27,6 +109,78 @@
         </div>
         <img src="https://res.cloudinary.com/dmm3wcupr/image/upload/v1687730233/pokemon/pokedex_hawvwe.png" alt="pokedex" class="pokedex">
     </main>
-    <script src="script.js"></script>
+    <script>
+        const pokemon = [
+            {
+                id: 1,
+                name: "Bicho",
+                img: "https://res.cloudinary.com/dmm3wcupr/image/upload/v1687735050/pokemon/pokemons/001_ps3twt.png"
+            },
+            {
+                id: 2,
+                name: "Bichano",
+                img: "https://res.cloudinary.com/dmm3wcupr/image/upload/v1687735050/pokemon/pokemons/002_aux90m.png"
+            },
+            {
+                id: 3,
+                name: "Bode",
+                img: "https://res.cloudinary.com/dmm3wcupr/image/upload/v1687737274/pokemon/pokemons/004_k70mvh.png"
+            },
+            {
+                id: 4,
+                name: "Bodão",
+                img: "https://res.cloudinary.com/dmm3wcupr/image/upload/v1687735050/pokemon/pokemons/005_s3clda.png"
+            },
+            {
+                id: 5,
+                name: "Siri",
+                img: "https://res.cloudinary.com/dmm3wcupr/image/upload/v1687735051/pokemon/pokemons/007_g8qiad.png"
+            },
+            {   
+                id: 6,
+                name: "Super Siri",
+                img: "https://res.cloudinary.com/dmm3wcupr/image/upload/v1687735050/pokemon/pokemons/008_hpgnx1.png"
+            }
+        ];
+
+            const pokeImg = document.getElementsByClassName("pokemon-image")[0];
+            const pokeNum = document.getElementsByClassName("pkmn-number")[0];
+            const pokeName = document.getElementsByClassName("pkmn-name")[0];
+
+            const prevBtn = document.getElementsByClassName("prev")[0];
+            const nextBtn = document.getElementsByClassName("next")[0];
+
+            let currentItem = 0;
+
+            window.addEventListener("DOMContentLoaded", function(){
+                const item = pokemon[currentItem];
+                pokeImg.src = item.img;
+                pokeName.textContent = item.name;
+                pokeNum.innerHTML = item.id;
+            });
+
+            function showPkmn(pkmn){
+                const item = pokemon[pkmn];
+                pokeImg.src = item.img;
+                pokeName.textContent = item.name;
+                pokeNum.innerHTML = item.id;
+            }
+
+            nextBtn.addEventListener("click", function(){
+                currentItem++;
+                if (currentItem > pokemon.length - 1){
+                    currentItem = 0;
+                }
+                showPkmn(currentItem);
+            });
+
+            prevBtn.addEventListener("click", function(){
+                currentItem--;
+                if (currentItem < 0){
+                    currentItem = pokemon.length - 1;
+                }
+                showPkmn(currentItem);
+            });
+    </script>
 </body>
 </html>
